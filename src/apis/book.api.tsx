@@ -1,4 +1,4 @@
-import { axiosInstance } from "./@core";
+import { axiosInstance } from './@core';
 
 const PATH = `v3/search/book`;
 

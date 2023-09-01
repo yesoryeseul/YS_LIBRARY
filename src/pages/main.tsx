@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { flexCenter } from '../styles/common';
+import { flexCenter } from '@/styles/common';
 
 const Main = () => {
   return (
