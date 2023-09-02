@@ -1,4 +1,5 @@
-import BookApi from '@/apis/book.api';
+
+import BookApi from 'apis/book.api';
 import { useEffect } from "react";
 
 const Testing = () => {
