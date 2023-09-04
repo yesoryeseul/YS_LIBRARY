@@ -1,15 +1,15 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import { globalStyles } from './styles/global';
-import Testing from './components/testing';
-import Main from './pages/main';
+
 import { theme } from './styles/theme';
+import { RouterProvider } from 'react-router-dom';
+import router from 'route/routing';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyles} />
-      <Main />
-      <Testing />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }

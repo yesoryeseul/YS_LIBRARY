@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
-import Layout from 'components/Layout';
 
 const Main = () => {
   return (
     <S.Wrapper>
-      <Layout />
+      <div>책 썸네일 영역</div>
     </S.Wrapper>
   );
 };
