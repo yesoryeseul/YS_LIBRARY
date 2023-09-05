@@ -3,6 +3,7 @@ import { flexCenter } from 'styles/common';
 import Input from './input/input';
 import { atom, useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
+import { BiSearchAlt } from 'react-icons/bi';
 
 const inputAtom = atom<string>('');
 
@@ -14,6 +15,9 @@ const Header = () => {
     e.preventDefault();
     console.log('검색어:', inputValue);
     navigate(`/${inputValue}`);
+    setTimeout(() => {
+      setInputValue('');
+    }, 0);
   };
 
   const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +26,7 @@ const Header = () => {
 
   return (
     <S.Container>
-      <S.Title>YS Library</S.Title>
+      <S.Title onClick={() => navigate('/')}>YS Library</S.Title>
       <S.SubTitle>당신이 원하는 도서를 무엇이든 검색해보세요</S.SubTitle>
       <S.SearchBarContainer>
         <form onSubmit={onSearchBook}>
@@ -31,8 +35,10 @@ const Header = () => {
             variant={'lineType'}
             shape={'none'}
             leng={'pc'}
+            value={inputValue}
             onChange={onChangeKeyword}
           />
+          <BiSearchAlt size={20} onClick={() => navigate(`/${inputValue}`)} />
         </form>
       </S.SearchBarContainer>
     </S.Container>
@@ -51,6 +57,7 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.color.primary};
   font-size: ${({ theme }) => theme.fontSize.title};
   margin-top: 120px;
+  cursor: pointer;
 `;
 const SubTitle = styled.p`
   color: ${({ theme }) => theme.color.gray500};
@@ -59,8 +66,17 @@ const SubTitle = styled.p`
 `;
 
 const SearchBarContainer = styled.div`
+  form {
+    position: relative;
+  }
   form > input {
     padding: 0 0 12px 16px;
+  }
+
+  form > svg {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
   }
 `;
 
