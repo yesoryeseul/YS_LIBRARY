@@ -5,7 +5,7 @@ interface PageProps {
   total_count: number;
   pageable_count: number;
   // is_end: boolean;
-  onPageChange: (pageNumber: number) => void;
+  onPageChange: (pageNumber: number, newSize: number) => void;
   sizes: number;
 }
 
@@ -47,7 +47,7 @@ const Pagination: React.FC<PageProps> = ({
     if (currentPage > 1) {
       const prevPage = currentPage - 1;
       setCurrentPage(prevPage);
-      onPageChange(prevPage); // 페이지 변경을 상위 컴포넌트로 알림
+      onPageChange(prevPage, 10); // 페이지 변경을 상위 컴포넌트로 알림
     }
   };
 
@@ -55,7 +55,7 @@ const Pagination: React.FC<PageProps> = ({
     if (currentPage < totalPages) {
       const nextPage = currentPage + 1;
       setCurrentPage(nextPage);
-      onPageChange(nextPage); // 페이지 변경을 상위 컴포넌트로 알림
+      onPageChange(nextPage, 10); // 페이지 변경을 상위 컴포넌트로 알림
     }
   };
 
@@ -74,7 +74,7 @@ const Pagination: React.FC<PageProps> = ({
           .slice((currentGroup - 1) * pagePerGroup, currentGroup * pagePerGroup)
           .map((pageNumber) => (
             <li key={pageNumber}>
-              <button onClick={() => onPageChange(pageNumber)}>
+              <button onClick={() => onPageChange(pageNumber, 10)}>
                 {pageNumber}
               </button>
             </li>

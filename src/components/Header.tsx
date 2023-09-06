@@ -1,20 +1,24 @@
 import styled from '@emotion/styled';
 import { flexCenter } from 'styles/common';
 import Input from './input/input';
-import { atom, useAtom } from 'jotai';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { BiSearchAlt } from 'react-icons/bi';
 
 const inputAtom = atom<string>('');
+const pageAtom = atom<number>(1);
+const sizeAtom = atom<number>(10);
 
 const Header = () => {
   const [inputValue, setInputValue] = useAtom(inputAtom);
   const navigate = useNavigate();
+  const currentPage = useAtomValue(pageAtom);
+  const currentSize = useAtomValue(sizeAtom);
 
   const onSearchBook = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('검색어:', inputValue);
-    navigate(`/${inputValue}`);
+    navigate(`/${inputValue}?page=${currentPage}&size=${currentSize}`);
     setInputValue('');
   };
 
