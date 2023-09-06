@@ -22,6 +22,7 @@ export interface ItemData {
 }
 
 const itemAtom = atom<ItemData[]>([]);
+const size = atom(10);
 
 const SearchPage = () => {
   const { search } = useParams<{ search?: string }>();
@@ -30,12 +31,13 @@ const SearchPage = () => {
   const [pageableCount, setPageableCount] = useState(0);
   // const [isEnd, setIsEnd] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sizes, setSizes] = useAtom(size); // 페이지 당 보여줄 개수
 
   useEffect(() => {
     if (search) {
       const fetchData = async (page: number) => {
         try {
-          const response = await BookApi.getBookList(search, page, 10);
+          const response = await BookApi.getBookList(search, page, sizes);
           console.log('data 테스트', response.data);
           console.log('api 테스트', response.data.documents);
           const newData: ItemData[] = response.data.documents;
@@ -45,13 +47,14 @@ const SearchPage = () => {
           setTotalCount(total_count);
           setPageableCount(pageable_count);
           // setIsEnd(is_end);
+          console.log('개수', total_count, pageable_count);
         } catch (error) {
           console.error('데이터 불러오는 중 에러 발생', error);
         }
       };
       fetchData(currentPage);
     }
-  }, [search, setItems, currentPage]);
+  }, [search, setItems, currentPage, sizes]);
 
   const handlePageChange = (pageNumber: number) => {
     // 페이지 번호 변경 시 호출되는 함수
@@ -68,6 +71,7 @@ const SearchPage = () => {
         total_count={totalCount}
         pageable_count={pageableCount}
         onPageChange={handlePageChange}
+        sizes={sizes}
         // is_end={isEnd}
       />
     </S.Wrapper>
