@@ -15,9 +15,7 @@ const Header = () => {
     e.preventDefault();
     console.log('검색어:', inputValue);
     navigate(`/${inputValue}`);
-    setTimeout(() => {
-      setInputValue('');
-    }, 0);
+    setInputValue('');
   };
 
   const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {

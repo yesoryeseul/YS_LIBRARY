@@ -1,9 +1,10 @@
 import BookApi from 'apis/book.api';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Item from './components/Item';
 import { atom, useAtom } from 'jotai';
 import styled from '@emotion/styled';
+import Pagination from 'components/pagination/Pagination';
 
 export interface ItemData {
   authors: [];
@@ -25,23 +26,37 @@ const itemAtom = atom<ItemData[]>([]);
 const SearchPage = () => {
   const { search } = useParams<{ search?: string }>();
   const [items, setItems] = useAtom(itemAtom);
+  const [totalCount, setTotalCount] = useState(0);
+  const [pageableCount, setPageableCount] = useState(0);
+  // const [isEnd, setIsEnd] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (search) {
-      const fetchData = async () => {
+      const fetchData = async (page: number) => {
         try {
-          const response = await BookApi.getBookList(search, 1);
+          const response = await BookApi.getBookList(search, page, 10);
           console.log('data 테스트', response.data);
           console.log('api 테스트', response.data.documents);
           const newData: ItemData[] = response.data.documents;
           setItems(newData);
+
+          const { total_count, pageable_count, is_end } = response.data.meta;
+          setTotalCount(total_count);
+          setPageableCount(pageable_count);
+          // setIsEnd(is_end);
         } catch (error) {
           console.error('데이터 불러오는 중 에러 발생', error);
         }
       };
-      fetchData();
+      fetchData(currentPage);
     }
-  }, [search, setItems]);
+  }, [search, setItems, currentPage]);
+
+  const handlePageChange = (pageNumber: number) => {
+    // 페이지 번호 변경 시 호출되는 함수
+    setCurrentPage(pageNumber);
+  };
   return (
     <S.Wrapper>
       <S.Container>
@@ -49,6 +64,12 @@ const SearchPage = () => {
           <Item key={index} item={item} />
         ))}
       </S.Container>
+      <Pagination
+        total_count={totalCount}
+        pageable_count={pageableCount}
+        onPageChange={handlePageChange}
+        // is_end={isEnd}
+      />
     </S.Wrapper>
   );
 };
