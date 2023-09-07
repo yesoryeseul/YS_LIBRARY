@@ -2,12 +2,28 @@ import styled from '@emotion/styled';
 import { ItemData } from '..';
 import { AiOutlinePicture } from 'react-icons/ai';
 import { boxShadow, flexCenter } from 'styles/common';
+import { useNavigate } from 'react-router-dom';
 
-const Item = ({ item }: { item: ItemData }) => {
+const Item = ({
+  item,
+  id,
+  search,
+  page,
+}: {
+  item: ItemData;
+  id: number;
+  search: string;
+  page: number;
+}) => {
+  const navigate = useNavigate();
   const title =
     item.title.length > 15 ? `${item.title.slice(0, 20)}...` : item.title;
+
+  const onShowBookDetail = () => {
+    navigate(`/${search}/${page}/${id}`);
+  };
   return (
-    <S.Container>
+    <S.Container onClick={onShowBookDetail}>
       {item.thumbnail ? (
         <img src={item.thumbnail} alt={item.title} />
       ) : (

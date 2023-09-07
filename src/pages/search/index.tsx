@@ -22,6 +22,7 @@ export interface ItemData {
   url: string;
 }
 
+export const bookAtom = atom<ItemData | null>(null);
 const itemAtom = atom<ItemData[]>([]);
 const size = atom(10);
 
@@ -34,7 +35,6 @@ const SearchPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sizes, setSizes] = useAtom(size); // 페이지 당 보여줄 개수
 
-  // const [_, searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [searchParams, _] = useSearchParams();
 
@@ -92,7 +92,13 @@ const SearchPage = () => {
     <S.Wrapper>
       <S.Container>
         {items.map((item, index) => (
-          <Item key={index} item={item} />
+          <Item
+            key={index}
+            item={item}
+            id={index}
+            search={search || ''}
+            page={currentPage}
+          />
         ))}
       </S.Container>
       <Pagination
