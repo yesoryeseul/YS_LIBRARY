@@ -1,5 +1,7 @@
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 interface PageProps {
   total_count: number;
@@ -50,53 +52,97 @@ const Pagination: React.FC<PageProps> = ({
     }
   };
 
+  // 이전 페이지 이동
   const onGoPrevPage = () => {
     if (currentPageNumber > 1) {
       const prevPage = currentPageNumber - 1;
       setCurrentPage(prevPage);
       onPageChange(prevPage, 10); // 페이지 url 변경
+      // 10, 20, 30, 40 페이지가 되었을 때 이전 그룹으로 이동하는 로직
+      if (prevPage < (currentGroup - 1) * pagePerGroup + 1) onGoPrevGroup();
+      // 10 < 11, 20 < 21, 30 < 31, 의 조건일 때만 이동
     }
   };
 
+  // 다음 페이지 이동
   const onGoNextPage = () => {
     if (currentPageNumber < totalPages) {
       const nextPage = currentPageNumber + 1;
       setCurrentPage(nextPage);
       onPageChange(nextPage, 10); // 페이지 변경을 상위 컴포넌트로 알림
+      if (nextPage > currentGroup * pagePerGroup)
+        // 다음 페이지가 현재 그룹의 마지막 페이지를 넘어갈 때 다음 그룹으로 이동(11, 21, 31, ... 이 될 때)
+        onGoNextGroup();
     }
   };
 
   return (
     <div>
-      <ul>
+      <S.UlContainer>
         <li>
-          <button onClick={onGoPrevPage}>&lt;</button>
+          <S.PageBtn onClick={onGoPrevPage}>&lt;</S.PageBtn>
         </li>
         {currentGroup > 1 && (
           <li>
-            <button onClick={onGoPrevGroup}>&lt;&lt;</button>
+            <S.PageBtn onClick={onGoPrevGroup}>&lt;&lt;</S.PageBtn>
           </li>
         )}
         {pageNumbers
           .slice((currentGroup - 1) * pagePerGroup, currentGroup * pagePerGroup)
           .map((pageNumber) => (
             <li key={pageNumber}>
-              <button onClick={() => onPageChange(pageNumber, 10)}>
+              <S.PageBtn
+                isActive={pageNumber === currentPageNumber}
+                onClick={() => onPageChange(pageNumber, 10)}
+              >
                 {pageNumber}
-              </button>
+              </S.PageBtn>
             </li>
           ))}
         <li>
-          <button onClick={onGoNextPage}>&gt;</button>
+          <S.PageBtn onClick={onGoNextPage}>&gt;</S.PageBtn>
         </li>
         {currentGroup < totalGroups && (
-          <li>
-            <button onClick={onGoNextGroup}>&gt;&gt;</button>
-          </li>
+          <S.LiContainer>
+            <S.PageBtn onClick={onGoNextGroup}>&gt;&gt;</S.PageBtn>
+          </S.LiContainer>
         )}
-      </ul>
+      </S.UlContainer>
     </div>
   );
 };
 
 export default Pagination;
+
+const UlContainer = styled.ul`
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+`;
+
+const LiContainer = styled.li`
+  button:last-of-type {
+    margin-right: 0;
+  }
+`;
+
+const PageBtn = styled.button<{ isActive?: boolean }>`
+  border: none;
+  background-color: ${({ theme }) => theme.color.primary};
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 12px;
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      background-color: #6aa3ff;
+    `}
+`;
+
+const S = {
+  UlContainer,
+  LiContainer,
+  PageBtn,
+};

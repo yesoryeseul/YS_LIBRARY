@@ -101,7 +101,7 @@ const SearchPage = () => {
 export default SearchPage;
 
 const Wrapper = styled.div`
-  margin: 70px auto 50px;
+  margin: 70px auto 100px;
   max-width: 1100px;
 `;
 
