@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ItemData } from '..';
 import { AiOutlinePicture } from 'react-icons/ai';
-import { flexCenter } from 'styles/common';
+import { boxShadow, flexCenter } from 'styles/common';
 
 const Item = ({ item }: { item: ItemData }) => {
   const title =
@@ -29,14 +29,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${({ theme }) => theme.border.primary};
   border-radius: 4px;
   padding: 20px;
+  cursor: pointer;
   transition: transform 0.3s ease;
 
   :hover {
     transform: translateY(-5px);
-    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.05);
+    ${boxShadow}
   }
 `;
 

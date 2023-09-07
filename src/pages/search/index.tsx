@@ -5,6 +5,7 @@ import Item from './components/Item';
 import { atom, useAtom } from 'jotai';
 import styled from '@emotion/styled';
 import Pagination from 'components/pagination/Pagination';
+import { flexCenter } from 'styles/common';
 
 export interface ItemData {
   authors: [];
@@ -78,6 +79,15 @@ const SearchPage = () => {
     searchParams.set('size', newSize.toString());
     navigate(`?${searchParams.toString()}`);
   };
+
+  if (items.length === 0) {
+    return (
+      <S.Wrapper>
+        <S.NoContainer>검색 결과가 없습니다</S.NoContainer>
+      </S.Wrapper>
+    );
+  }
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -111,4 +121,11 @@ const Container = styled.div`
   grid-gap: 24px;
 `;
 
-const S = { Wrapper, Container };
+const NoContainer = styled.div`
+  ${flexCenter}
+  font-size: 24px;
+  font-weight: bold;
+  color: #777;
+`;
+
+const S = { Wrapper, Container, NoContainer };

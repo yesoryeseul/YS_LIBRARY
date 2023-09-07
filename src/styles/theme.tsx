@@ -12,4 +12,7 @@ export const theme: Theme = {
     title: '42px',
     subtitle: '20px',
   },
+  border: {
+    primary: '#e5e7eb',
+  },
 };

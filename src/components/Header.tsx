@@ -17,6 +17,7 @@ const Header = () => {
 
   const onSearchBook = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inputValue.trim() === '') return;
     console.log('검색어:', inputValue);
     navigate(`/${inputValue}?page=${currentPage}&size=${currentSize}`);
     setInputValue('');

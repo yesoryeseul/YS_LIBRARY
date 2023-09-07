@@ -2,6 +2,12 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
+import {
+  TbPlayerTrackPrevFilled,
+  TbPlayerTrackNextFilled,
+} from 'react-icons/tb';
+import { flexCenter } from 'styles/common';
 
 interface PageProps {
   total_count: number;
@@ -40,7 +46,10 @@ const Pagination: React.FC<PageProps> = ({
   const onGoPrevGroup = () => {
     if (currentGroup > 1) {
       setCurrentGroup(currentGroup - 1);
-      setCurrentPage((currentGroup - 2) * pagePerGroup + 1);
+      const prevGroupLastPage =
+        (currentGroup - 2) * pagePerGroup + pagePerGroup;
+      setCurrentPage(prevGroupLastPage);
+      onPageChange(prevGroupLastPage, sizes);
     }
   };
 
@@ -48,7 +57,9 @@ const Pagination: React.FC<PageProps> = ({
   const onGoNextGroup = () => {
     if (currentGroup < totalGroups) {
       setCurrentGroup(currentGroup + 1);
-      setCurrentPage(currentGroup * pagePerGroup + 1);
+      const nextGroupFirstPage = currentGroup * pagePerGroup + 1;
+      setCurrentPage(nextGroupFirstPage);
+      onPageChange(nextGroupFirstPage, sizes);
     }
   };
 
@@ -57,7 +68,7 @@ const Pagination: React.FC<PageProps> = ({
     if (currentPageNumber > 1) {
       const prevPage = currentPageNumber - 1;
       setCurrentPage(prevPage);
-      onPageChange(prevPage, 10); // 페이지 url 변경
+      onPageChange(prevPage, sizes); // 페이지 url 변경
       // 10, 20, 30, 40 페이지가 되었을 때 이전 그룹으로 이동하는 로직
       if (prevPage < (currentGroup - 1) * pagePerGroup + 1) onGoPrevGroup();
       // 10 < 11, 20 < 21, 30 < 31, 의 조건일 때만 이동
@@ -69,7 +80,7 @@ const Pagination: React.FC<PageProps> = ({
     if (currentPageNumber < totalPages) {
       const nextPage = currentPageNumber + 1;
       setCurrentPage(nextPage);
-      onPageChange(nextPage, 10); // 페이지 변경을 상위 컴포넌트로 알림
+      onPageChange(nextPage, sizes); // 페이지 변경을 상위 컴포넌트로 알림
       if (nextPage > currentGroup * pagePerGroup)
         // 다음 페이지가 현재 그룹의 마지막 페이지를 넘어갈 때 다음 그룹으로 이동(11, 21, 31, ... 이 될 때)
         onGoNextGroup();
@@ -79,33 +90,33 @@ const Pagination: React.FC<PageProps> = ({
   return (
     <div>
       <S.UlContainer>
-        <li>
-          <S.PageBtn onClick={onGoPrevPage}>&lt;</S.PageBtn>
-        </li>
         {currentGroup > 1 && (
-          <li>
-            <S.PageBtn onClick={onGoPrevGroup}>&lt;&lt;</S.PageBtn>
-          </li>
+          <S.PrevGroup onClick={onGoPrevGroup}>
+            <TbPlayerTrackPrevFilled size={16} />
+          </S.PrevGroup>
         )}
+        <S.PrevNextList>
+          <BiSolidLeftArrow size={12} onClick={onGoPrevPage} />
+        </S.PrevNextList>
         {pageNumbers
           .slice((currentGroup - 1) * pagePerGroup, currentGroup * pagePerGroup)
           .map((pageNumber) => (
             <li key={pageNumber}>
               <S.PageBtn
                 isActive={pageNumber === currentPageNumber}
-                onClick={() => onPageChange(pageNumber, 10)}
+                onClick={() => onPageChange(pageNumber, sizes)}
               >
                 {pageNumber}
               </S.PageBtn>
             </li>
           ))}
-        <li>
-          <S.PageBtn onClick={onGoNextPage}>&gt;</S.PageBtn>
-        </li>
+        <S.PrevNextList>
+          <BiSolidRightArrow size={12} onClick={onGoNextPage} />
+        </S.PrevNextList>
         {currentGroup < totalGroups && (
-          <S.LiContainer>
-            <S.PageBtn onClick={onGoNextGroup}>&gt;&gt;</S.PageBtn>
-          </S.LiContainer>
+          <S.NextGroup onClick={onGoNextGroup}>
+            <TbPlayerTrackNextFilled size={15} />
+          </S.NextGroup>
         )}
       </S.UlContainer>
     </div>
@@ -123,6 +134,46 @@ const UlContainer = styled.ul`
 const LiContainer = styled.li`
   button:last-of-type {
     margin-right: 0;
+  }
+`;
+
+const PrevNextList = styled.li`
+  background-color: ${({ theme }) => theme.color.primary};
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  ${flexCenter}
+  align-items: center;
+  cursor: pointer;
+  svg {
+    path {
+      fill: #fff;
+    }
+  }
+`;
+
+const PrevGroup = styled.li`
+  background-color: ${({ theme }) => theme.color.primary};
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  ${flexCenter}
+  align-items: center;
+  cursor: pointer;
+  svg {
+    color: #fff;
+  }
+`;
+
+const NextGroup = styled.li`
+  background-color: ${({ theme }) => theme.color.primary};
+  width: 32px;
+  height: 32px;
+  ${flexCenter}
+  align-items: center;
+  cursor: pointer;
+  svg {
+    color: #fff;
   }
 `;
 
@@ -144,5 +195,8 @@ const PageBtn = styled.button<{ isActive?: boolean }>`
 const S = {
   UlContainer,
   LiContainer,
+  PrevNextList,
+  PrevGroup,
+  NextGroup,
   PageBtn,
 };
