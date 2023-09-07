@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 interface PageProps {
   total_count: number;
@@ -7,6 +7,8 @@ interface PageProps {
   // is_end: boolean;
   onPageChange: (pageNumber: number, newSize: number) => void;
   sizes: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Pagination: React.FC<PageProps> = ({
@@ -14,10 +16,15 @@ const Pagination: React.FC<PageProps> = ({
   pageable_count,
   onPageChange,
   sizes,
+  currentPage,
+  setCurrentPage,
 }) => {
   const totalPages = Math.ceil(pageable_count / sizes); // 총 페이지 개수
-  const [currentPage, setCurrentPage] = useState(1);
   const [currentGroup, setCurrentGroup] = useState(1);
+  const [params, _] = useSearchParams();
+  const currentPageNumber = Number(params.get('page')) || currentPage;
+
+  console.log('page', currentPageNumber, typeof currentPageNumber);
 
   // 페이지 숫자 배열 생성
   const pagePerGroup = 10; // 그룹당 페이지 개수
@@ -44,16 +51,16 @@ const Pagination: React.FC<PageProps> = ({
   };
 
   const onGoPrevPage = () => {
-    if (currentPage > 1) {
-      const prevPage = currentPage - 1;
+    if (currentPageNumber > 1) {
+      const prevPage = currentPageNumber - 1;
       setCurrentPage(prevPage);
-      onPageChange(prevPage, 10); // 페이지 변경을 상위 컴포넌트로 알림
+      onPageChange(prevPage, 10); // 페이지 url 변경
     }
   };
 
   const onGoNextPage = () => {
-    if (currentPage < totalPages) {
-      const nextPage = currentPage + 1;
+    if (currentPageNumber < totalPages) {
+      const nextPage = currentPageNumber + 1;
       setCurrentPage(nextPage);
       onPageChange(nextPage, 10); // 페이지 변경을 상위 컴포넌트로 알림
     }

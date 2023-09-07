@@ -90,6 +90,8 @@ const SearchPage = () => {
         pageable_count={pageableCount}
         onPageChange={handlePageChange}
         sizes={sizes}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         // is_end={isEnd}
       />
     </S.Wrapper>
