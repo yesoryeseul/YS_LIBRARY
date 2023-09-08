@@ -8,17 +8,17 @@ import Pagination from 'components/pagination/Pagination';
 import { flexCenter } from 'styles/common';
 
 export interface ItemData {
-  authors: [];
+  authors: string[];
   contents: string;
-  datetime: Date;
+  datetime: string;
   isbn: string;
   price: number;
   publisher: string;
   sale_price: number;
-  statue: string;
+  status: string;
   thumbnail: string;
   title: string;
-  translate: [];
+  translate: string[];
   url: string;
 }
 

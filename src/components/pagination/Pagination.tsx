@@ -95,8 +95,8 @@ const Pagination: React.FC<PageProps> = ({
             <TbPlayerTrackPrevFilled size={16} />
           </S.PrevGroup>
         )}
-        <S.PrevNextList>
-          <BiSolidLeftArrow size={12} onClick={onGoPrevPage} />
+        <S.PrevNextList onClick={onGoPrevPage}>
+          <BiSolidLeftArrow size={12} />
         </S.PrevNextList>
         {pageNumbers
           .slice((currentGroup - 1) * pagePerGroup, currentGroup * pagePerGroup)
@@ -110,8 +110,8 @@ const Pagination: React.FC<PageProps> = ({
               </S.PageBtn>
             </li>
           ))}
-        <S.PrevNextList>
-          <BiSolidRightArrow size={12} onClick={onGoNextPage} />
+        <S.PrevNextList onClick={onGoNextPage}>
+          <BiSolidRightArrow size={12} />
         </S.PrevNextList>
         {currentGroup < totalGroups && (
           <S.NextGroup onClick={onGoNextGroup}>

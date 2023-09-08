@@ -35,6 +35,20 @@ const Item = ({
         </S.NoImg>
       )}
       <S.Title>{title}</S.Title>
+      <S.AuthorAndPublisher>
+        {item.authors.length > 1 ? (
+          <>
+            {item.authors[0]} 외 | {item.publisher}
+          </>
+        ) : (
+          <>
+            {item.authors[0]} | {item.publisher}
+          </>
+        )}
+      </S.AuthorAndPublisher>
+      <S.Price>
+        {item.price.toLocaleString()} <S.Won>원</S.Won>
+      </S.Price>
     </S.Container>
   );
 };
@@ -44,7 +58,6 @@ export default Item;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   border: 1px solid ${({ theme }) => theme.border.primary};
   border-radius: 4px;
   padding: 20px;
@@ -58,8 +71,8 @@ const Container = styled.div`
 `;
 
 const NoImg = styled.div`
-  width: 120px;
-  height: 174px;
+  width: 160px;
+  height: 230px;
   background-color: #d9d9d9;
   ${flexCenter}
   align-items: center;
@@ -75,6 +88,36 @@ const Title = styled.p`
   margin-top: 20px;
   line-height: 1.2;
   font-size: ${({ theme }) => theme.fontSize.small};
+  font-weight: bold;
+  color: ${({ theme }) => theme.color.black};
 `;
 
-const S = { Container, NoImg, NoImgBox, Title };
+const AuthorAndPublisher = styled.p`
+  margin-top: 8px;
+  font-size: 13px;
+  color: #999;
+`;
+
+const Price = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.small};
+  font-weight: bold;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.color.black};
+`;
+
+const Won = styled.span`
+  font-size: 12px;
+  margin-left: 4px;
+`;
+
+const S = {
+  Container,
+  NoImg,
+  NoImgBox,
+  Title,
+  AuthorAndPublisher,
+  Price,
+  Won,
+};
