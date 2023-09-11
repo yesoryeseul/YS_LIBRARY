@@ -9,18 +9,20 @@ const Item = ({
   id,
   search,
   page,
+  size,
 }: {
   item: ItemData;
   id: number;
   search: string;
   page: number;
+  size: number;
 }) => {
   const navigate = useNavigate();
   const title =
     item.title.length > 15 ? `${item.title.slice(0, 20)}...` : item.title;
 
   const onShowBookDetail = () => {
-    navigate(`/${search}/${page}/${id}`);
+    navigate(`/${search}/${page}/${id}`, { state: { size } });
   };
   return (
     <S.Container onClick={onShowBookDetail}>

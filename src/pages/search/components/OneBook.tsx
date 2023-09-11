@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import BookApi from 'apis/book.api';
 import { ItemData, bookAtom } from '..';
@@ -8,17 +8,20 @@ import formatDate from 'utils/getDate';
 import { boxShadow, flexCenter } from 'styles/common';
 import { AiOutlinePicture } from 'react-icons/ai';
 
-const size = atom(10);
+// const size = atom(10);
 
 const OneBook = () => {
-  const { id, page, search } = useParams<{
+  const { id, page, search, size } = useParams<{
     id?: string;
     page?: string;
     search?: string;
+    size?: string;
   }>();
 
   const [book, setBook] = useAtom(bookAtom);
-  const [sizes, setSizes] = useAtom(size);
+  // const [sizes, setSizes] = useAtom(size);
+  const location = useLocation();
+  const sizes = location.state?.size || '10';
 
   const [searchParams, _] = useSearchParams();
   const pageParam = parseInt(page || '1', 10);
@@ -28,7 +31,11 @@ const OneBook = () => {
   useEffect(() => {
     if (search && id) {
       const fetchData = async () => {
-        const response = await BookApi.getBookList(search, pageParam, sizes); // 책 데이터를 가져오는 함수
+        const response = await BookApi.getBookList(
+          search,
+          pageParam,
+          parseInt(sizes, 10)
+        ); // 책 데이터를 가져오는 함수
         const idData = response.data.documents;
         console.log('idData', idData);
 
@@ -43,7 +50,7 @@ const OneBook = () => {
 
       fetchData();
     }
-  }, [id, search, setBook, sizes, searchParams, page, pageParam]);
+  }, [id, search, setBook, size, searchParams, page, pageParam, sizes]);
 
   return (
     <S.Wrapper>

@@ -26,14 +26,15 @@ export interface ItemData {
 export const bookAtom = atom<ItemData | null>(null);
 const itemAtom = atom<ItemData[]>([]);
 const size = atom(10);
+const pageableCountAtom = atom(0);
+const currentPageAtom = atom(1);
 
 const SearchPage = () => {
   const { search } = useParams<{ search?: string }>();
   const [items, setItems] = useAtom(itemAtom);
-  const [totalCount, setTotalCount] = useState(0);
-  const [pageableCount, setPageableCount] = useState(0);
-  // const [isEnd, setIsEnd] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useAtom(atom(0));
+  const [pageableCount, setPageableCount] = useAtom(pageableCountAtom);
+  const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
   const [sizes, setSizes] = useAtom(size); // 페이지 당 보여줄 개수
 
   const navigate = useNavigate();
@@ -49,10 +50,9 @@ const SearchPage = () => {
           const newData: ItemData[] = response.data.documents;
           setItems(newData);
 
-          const { total_count, pageable_count, is_end } = response.data.meta;
+          const { total_count, pageable_count } = response.data.meta;
           setTotalCount(total_count);
           setPageableCount(pageable_count);
-          // setIsEnd(is_end);
           console.log('개수', total_count, pageable_count);
         } catch (error) {
           console.error('데이터 불러오는 중 에러 발생', error);
@@ -107,7 +107,7 @@ const SearchPage = () => {
         <Select
           variant={'primary'}
           options={options}
-          selectedValue={10}
+          selectedValue={sizes}
           selectedLabel={'10개씩 보기'}
           onChange={handleSelectChange}
         />
@@ -120,6 +120,7 @@ const SearchPage = () => {
             id={index}
             search={search || ''}
             page={currentPage}
+            size={sizes}
           />
         ))}
       </S.Container>
@@ -130,7 +131,6 @@ const SearchPage = () => {
         sizes={sizes}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        // is_end={isEnd}
       />
     </S.Wrapper>
   );

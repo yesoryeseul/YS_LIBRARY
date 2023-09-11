@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import {
@@ -8,6 +7,7 @@ import {
   TbPlayerTrackNextFilled,
 } from 'react-icons/tb';
 import { flexCenter } from 'styles/common';
+import { atom, useAtom } from 'jotai';
 
 interface PageProps {
   total_count: number;
@@ -19,6 +19,8 @@ interface PageProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
+const groupAtom = atom(1);
+
 const Pagination: React.FC<PageProps> = ({
   total_count,
   pageable_count,
@@ -28,7 +30,7 @@ const Pagination: React.FC<PageProps> = ({
   setCurrentPage,
 }) => {
   const totalPages = Math.ceil(pageable_count / sizes); // 총 페이지 개수
-  const [currentGroup, setCurrentGroup] = useState(1);
+  const [currentGroup, setCurrentGroup] = useAtom(groupAtom);
   const [params, _] = useSearchParams();
   const currentPageNumber = Number(params.get('page')) || currentPage;
 
