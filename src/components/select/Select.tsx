@@ -5,7 +5,7 @@ import * as S from './Select.style';
 
 export interface SelectProps {
   variant: 'primary';
-  options: { label: string; value: number | string }[];
+  options: { label: string; value: number }[];
   selectedValue: number;
   selectedLabel: string;
   // onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -31,7 +31,7 @@ const Select = ({
     if (isOpen) return setIsOpen(false);
   };
 
-  const handleChangeValue = (value: any) => {
+  const handleChangeValue = (value: number) => {
     setCurrentValue(value);
     setIsOpen(false);
 
