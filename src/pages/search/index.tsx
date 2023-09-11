@@ -6,6 +6,7 @@ import { atom, useAtom } from 'jotai';
 import styled from '@emotion/styled';
 import Pagination from 'components/pagination/Pagination';
 import { flexCenter } from 'styles/common';
+import Select from 'components/select/Select';
 
 export interface ItemData {
   authors: string[];
@@ -80,6 +81,18 @@ const SearchPage = () => {
     navigate(`?${searchParams.toString()}`);
   };
 
+  const options = [
+    { label: '10개씩 보기', value: 10 },
+    { label: '30개씩 보기', value: 30 },
+    { label: '50개씩 보기', value: 50 },
+  ];
+
+  const handleSelectChange = (value: number) => {
+    setSizes(value);
+    searchParams.set('size', value.toString());
+    navigate(`?${searchParams.toString()}`);
+  };
+
   if (items.length === 0) {
     return (
       <S.Wrapper>
@@ -90,6 +103,15 @@ const SearchPage = () => {
 
   return (
     <S.Wrapper>
+      <S.SelectBox>
+        <Select
+          variant={'primary'}
+          options={options}
+          selectedValue={10}
+          selectedLabel={'10개씩 보기'}
+          onChange={handleSelectChange}
+        />
+      </S.SelectBox>
       <S.Container>
         {items.map((item, index) => (
           <Item
@@ -121,6 +143,12 @@ const Wrapper = styled.div`
   max-width: 1100px;
 `;
 
+const SelectBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+`;
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -134,4 +162,4 @@ const NoContainer = styled.div`
   color: #777;
 `;
 
-const S = { Wrapper, Container, NoContainer };
+const S = { Wrapper, SelectBox, Container, NoContainer };

@@ -5,9 +5,11 @@ import * as S from './Select.style';
 
 export interface SelectProps {
   variant: 'primary';
-  options: string[];
-  selectedValue: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  options: { label: string; value: number | string }[];
+  selectedValue: number;
+  selectedLabel: string;
+  // onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: number) => void;
 }
 
 const isOpenAtom = atom(false);
@@ -16,11 +18,13 @@ const Select = ({
   variant,
   options,
   selectedValue,
+  selectedLabel,
   onChange,
   ...rest
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
   const [currentValue, setCurrentValue] = useState(selectedValue);
+  const [label, setLabel] = useState(selectedLabel);
 
   const onOpenControl = () => {
     setIsOpen((prev) => !prev);
@@ -32,23 +36,29 @@ const Select = ({
     setIsOpen(false);
 
     if (onChange) onChange(value);
+    if (setLabel) {
+      const selectedOption = options.find((option) => option.value === value);
+      if (selectedOption) {
+        setLabel(selectedOption.label);
+      }
+    }
   };
 
   return (
     <S.Wrapper onClick={onOpenControl}>
       <S.Container variant={variant}>
-        <S.Span>{currentValue}</S.Span>
+        <S.Span>{label}</S.Span>
         <AiFillCaretDown size={16} />
       </S.Container>
       {isOpen && (
         <S.Select variant={variant}>
-          {options.map((option: string, index: number) => (
+          {options.map((option, index: number) => (
             <S.OneSelect
               key={index}
               variant={variant}
-              onClick={() => handleChangeValue(option)}
+              onClick={() => handleChangeValue(option.value)}
             >
-              {option}
+              {option.label}
             </S.OneSelect>
           ))}
         </S.Select>

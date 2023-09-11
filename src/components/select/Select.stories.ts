@@ -19,13 +19,12 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     options: [
-      '정확도순',
-      '발간일순',
-      '10개씩 보기',
-      '30개씩 보기',
-      '50개씩 보기',
+      { label: '10개씩 보기', value: 10 },
+      { label: '30개씩 보기', value: 30 },
+      { label: '50개씩 보기', value: 50 },
     ], // 예시 옵션
-    selectedValue: '정확도순', // 예시 초기 선택 값
+    selectedValue: 10, // 예시 초기 선택 값
+    selectedLabel: '10개씩 보기', // 예시 초기 선택 값
     onChange: (e) => {}, // 예시 onChange 핸들러
   },
 };

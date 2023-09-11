@@ -19,7 +19,7 @@ export const Container = styled.div<Props>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 96px;
+  width: 120px;
   height: 40px;
   padding: 4px 12px;
   border: 1px solid #ddd;
