@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ItemData } from '..';
 import { AiOutlinePicture } from 'react-icons/ai';
-import { boxShadow, flexCenter } from 'styles/common';
+import { boxShadow, flexCenter, mq } from 'styles/common';
 import { useNavigate } from 'react-router-dom';
 
 const Item = ({
@@ -36,21 +36,23 @@ const Item = ({
           </S.NoImgBox>
         </S.NoImg>
       )}
-      <S.Title>{title}</S.Title>
-      <S.AuthorAndPublisher>
-        {item.authors.length > 1 ? (
-          <>
-            {item.authors[0]} 외 | {item.publisher}
-          </>
-        ) : (
-          <>
-            {item.authors[0]} | {item.publisher}
-          </>
-        )}
-      </S.AuthorAndPublisher>
-      <S.Price>
-        {item.price.toLocaleString()} <S.Won>원</S.Won>
-      </S.Price>
+      <S.DescBox>
+        <S.Title>{title}</S.Title>
+        <S.AuthorAndPublisher>
+          {item.authors.length > 1 ? (
+            <>
+              {item.authors[0]} 외 | {item.publisher}
+            </>
+          ) : (
+            <>
+              {item.authors[0]} | {item.publisher}
+            </>
+          )}
+        </S.AuthorAndPublisher>
+        <S.Price>
+          {item.price.toLocaleString()} <S.Won>원</S.Won>
+        </S.Price>
+      </S.DescBox>
     </S.Container>
   );
 };
@@ -70,20 +72,47 @@ const Container = styled.div`
     transform: translateY(-5px);
     ${boxShadow}
   }
+
+  ${mq[1]} {
+    transition: none;
+
+    :hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  ${mq[2]} {
+    flex-direction: row;
+  }
 `;
 
 const NoImg = styled.div`
-  width: 160px;
   height: 230px;
   background-color: #d9d9d9;
   ${flexCenter}
   align-items: center;
+  ${mq[3]} {
+    height: 210px;
+  }
+  ${mq[2]} {
+    width: 120px;
+    height: 174px;
+  }
 `;
 
 const NoImgBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const DescBox = styled.div`
+  ${mq[2]} {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
 `;
 
 const Title = styled.p`
@@ -118,6 +147,7 @@ const S = {
   Container,
   NoImg,
   NoImgBox,
+  DescBox,
   Title,
   AuthorAndPublisher,
   Price,

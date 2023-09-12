@@ -6,7 +6,7 @@ import {
   TbPlayerTrackPrevFilled,
   TbPlayerTrackNextFilled,
 } from 'react-icons/tb';
-import { flexCenter } from 'styles/common';
+import { flexCenter, mq } from 'styles/common';
 import { atom, useAtom } from 'jotai';
 
 interface PageProps {
@@ -129,8 +129,13 @@ export default Pagination;
 
 const UlContainer = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 12px;
   margin-top: 70px;
+  ${mq[0]} {
+    padding: 0 16px;
+  }
 `;
 
 const LiContainer = styled.li`
@@ -143,7 +148,6 @@ const PrevNextList = styled.li`
   background-color: ${({ theme }) => theme.color.primary};
   width: 32px;
   height: 32px;
-  margin-right: 12px;
   ${flexCenter}
   align-items: center;
   cursor: pointer;
@@ -158,7 +162,6 @@ const PrevGroup = styled.li`
   background-color: ${({ theme }) => theme.color.primary};
   width: 32px;
   height: 32px;
-  margin-right: 12px;
   ${flexCenter}
   align-items: center;
   cursor: pointer;
@@ -186,7 +189,6 @@ const PageBtn = styled.button<{ isActive?: boolean }>`
   height: 32px;
   color: #fff;
   font-weight: bold;
-  margin-right: 12px;
   ${({ isActive }) =>
     isActive &&
     css`

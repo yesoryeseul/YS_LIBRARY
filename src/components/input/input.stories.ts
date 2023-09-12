@@ -13,10 +13,6 @@ const meta = {
       options: ['none', 'primary'],
       control: { type: 'radio' },
     },
-    leng: {
-      options: ['pc', 'tablet', 'mobile'],
-      control: { type: 'select' },
-    },
   },
 } satisfies Meta<typeof Input>;
 
@@ -27,6 +23,5 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     shape: 'primary',
-    leng: 'pc',
   },
 };

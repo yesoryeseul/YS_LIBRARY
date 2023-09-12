@@ -5,7 +5,7 @@ import Item from './components/Item';
 import { atom, useAtom } from 'jotai';
 import styled from '@emotion/styled';
 import Pagination from 'components/pagination/Pagination';
-import { flexCenter } from 'styles/common';
+import { flexCenter, mq } from 'styles/common';
 import Select from 'components/select/Select';
 
 export interface ItemData {
@@ -26,13 +26,14 @@ export interface ItemData {
 export const bookAtom = atom<ItemData | null>(null);
 const itemAtom = atom<ItemData[]>([]);
 const size = atom(10);
+const totalCountAtom = atom(0);
 const pageableCountAtom = atom(0);
 const currentPageAtom = atom(1);
 
 const SearchPage = () => {
   const { search } = useParams<{ search?: string }>();
   const [items, setItems] = useAtom(itemAtom);
-  const [totalCount, setTotalCount] = useAtom(atom(0));
+  const [totalCount, setTotalCount] = useAtom(totalCountAtom);
   const [pageableCount, setPageableCount] = useAtom(pageableCountAtom);
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
   const [sizes, setSizes] = useAtom(size); // 페이지 당 보여줄 개수
@@ -71,11 +72,22 @@ const SearchPage = () => {
 
       fetchData(currentPage, sizes);
     }
-  }, [search, setItems, currentPage, sizes, searchParams, setSizes]);
+  }, [
+    search,
+    setItems,
+    currentPage,
+    sizes,
+    searchParams,
+    setSizes,
+    setTotalCount,
+    setPageableCount,
+    setCurrentPage,
+  ]);
 
   const handlePageChange = (pageNumber: number, newSize: number) => {
     // 페이지 번호 변경 시 호출되는 함수
     setCurrentPage(pageNumber);
+    setSizes(newSize);
     searchParams.set('page', pageNumber.toString());
     searchParams.set('size', newSize.toString());
     navigate(`?${searchParams.toString()}`);
@@ -88,6 +100,12 @@ const SearchPage = () => {
   ];
 
   const handleSelectChange = (value: number) => {
+    // const newPageNumber = Math.ceil(((currentPage - 1) * sizes) / value);
+    // setSizes(value);
+    // setCurrentPage(newPageNumber); // 새로운 페이지 번호 설정
+    // searchParams.set('page', newPageNumber.toString());
+    // searchParams.set('size', value.toString());
+    // navigate(`?${searchParams.toString()}`);
     setSizes(value);
     searchParams.set('size', value.toString());
     navigate(`?${searchParams.toString()}`);
@@ -147,12 +165,28 @@ const SelectBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 30px;
+
+  ${mq[3]} {
+    padding: 0 20px;
+  }
 `;
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 24px;
+
+  ${mq[0]} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  ${mq[2]} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  ${mq[3]} {
+    padding: 0 20px;
+  }
 `;
 
 const NoContainer = styled.div`

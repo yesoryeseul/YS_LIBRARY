@@ -5,7 +5,7 @@ import BookApi from 'apis/book.api';
 import { ItemData, bookAtom } from '..';
 import styled from '@emotion/styled';
 import formatDate from 'utils/getDate';
-import { boxShadow, flexCenter } from 'styles/common';
+import { boxShadow, flexCenter, mq } from 'styles/common';
 import { AiOutlinePicture } from 'react-icons/ai';
 
 // const size = atom(10);
@@ -106,6 +106,10 @@ export default OneBook;
 const Wrapper = styled.div`
   max-width: 840px;
   margin: 70px auto 100px;
+
+  ${mq[2]} {
+    padding: 0 20px;
+  }
 `;
 
 const Container = styled.div`
@@ -121,12 +125,30 @@ const Container = styled.div`
     transform: translateY(-5px);
     ${boxShadow}
   }
+
+  ${mq[1]} {
+    transition: none;
+
+    :hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  ${mq[0]} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Thumbnail = styled.div`
   margin-right: 30px;
   img {
     width: 160px;
+  }
+
+  ${mq[0]} {
+    margin: 0 0 30px 0;
   }
 `;
 

@@ -4,7 +4,6 @@ import * as S from './input.style';
 interface InputProps {
   variant: 'primary' | 'lineType';
   shape: 'none' | 'primary';
-  leng: 'pc' | 'tablet' | 'mobile';
   value?: string;
   placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -13,7 +12,6 @@ interface InputProps {
 const Input = ({
   variant,
   shape,
-  leng,
   value,
   placeholder,
   onChange,
@@ -23,7 +21,6 @@ const Input = ({
       placeholder={placeholder}
       variant={variant}
       shape={shape}
-      leng={leng}
       value={value}
       onChange={onChange}
     />

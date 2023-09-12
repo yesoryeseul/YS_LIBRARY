@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { mq } from 'styles/common';
 
 export interface InputProps {
   variant: 'primary' | 'lineType';
   shape: 'none' | 'primary';
-  leng: 'pc' | 'tablet' | 'mobile';
 }
 
 const variantCSS = {
@@ -28,21 +28,17 @@ const shapeCSS = {
   `,
 };
 
-const sizeCSS = {
-  pc: css`
-    width: 600px;
-  `,
-  tablet: css`
-    width: 450px;
-  `,
-  mobile: css`
-    width: 240px;
-  `,
-};
-
 export const Input = styled.input<InputProps>`
   outline: none;
   ${({ variant }) => variantCSS[variant]}
   ${({ shape }) => shapeCSS[shape]}
-  ${({ leng }) => sizeCSS[leng]}
+
+  width: 600px;
+
+  ${mq[1]} {
+    width: 450px;
+  }
+  ${mq[0]} {
+    width: 320px;
+  }
 `;

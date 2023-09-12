@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { flexCenter } from 'styles/common';
+import { flexCenter, mq } from 'styles/common';
 import Input from './input/input';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +37,6 @@ const Header = () => {
             placeholder={'도서명, 저자, 출판사를 검색해보세요'}
             variant={'lineType'}
             shape={'none'}
-            leng={'pc'}
             value={inputValue}
             onChange={onChangeKeyword}
           />
@@ -66,6 +65,13 @@ const SubTitle = styled.p`
   color: ${({ theme }) => theme.color.gray500};
   font-size: ${({ theme }) => theme.fontSize.subtitle};
   margin: 40px 0;
+  ${mq[0]} {
+    font-size: 16px;
+    padding: 0 20px;
+    line-height: 1.4;
+    text-align: center;
+    word-break: keep-all;
+  }
 `;
 
 const SearchBarContainer = styled.div`
