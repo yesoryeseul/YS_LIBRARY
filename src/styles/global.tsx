@@ -8,12 +8,21 @@ export const globalStyles = css`
     line-height: 1;
   }
 
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+  }
+
   ul,
   li {
     list-style: none;
   }
 
-  input {
+  input,
+  button {
     border: none;
     outline: none;
   }

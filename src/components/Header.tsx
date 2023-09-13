@@ -62,6 +62,7 @@ const Container = styled.div`
 const Title = styled.h1`
   color: ${({ theme }) => theme.color.primary};
   font-size: ${({ theme }) => theme.fontSize.title};
+  font-family: 'Montserrat', sans-serif;
   margin-top: 120px;
   cursor: pointer;
 `;

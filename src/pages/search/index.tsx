@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import Pagination from 'components/pagination/Pagination';
 import { flexCenter, mq } from 'styles/common';
 import Select from 'components/select/Select';
+import ScrollToTop from 'components/scrollToTop/ScrollToTop';
 
 export interface ItemData {
   authors: string[];
@@ -144,6 +145,7 @@ const SearchPage = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
+      <ScrollToTop />
     </S.Wrapper>
   );
 };
