@@ -1,5 +1,5 @@
 import BookApi from 'apis/book.api';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Item from './components/Item';
 import { atom, useAtom } from 'jotai';
@@ -40,9 +40,16 @@ const SearchPage = () => {
 
   const navigate = useNavigate();
   const [searchParams, _] = useSearchParams();
-
   useEffect(() => {
     if (search) {
+      // URL 파라미터에 따라 currentPage와 sizes를 업데이트
+      const pageParam = searchParams.get('page');
+      const sizeParam = searchParams.get('size');
+      const currentPageValue = pageParam ? parseInt(pageParam, 10) : 1;
+      const sizesValue = sizeParam ? parseInt(sizeParam, 10) : 10;
+      setCurrentPage(currentPageValue);
+      setSizes(sizesValue);
+
       const fetchData = async (page: number, size: number) => {
         try {
           const response = await BookApi.getBookList(search, page, size);
@@ -60,28 +67,16 @@ const SearchPage = () => {
         }
       };
 
-      // URL 파라미터에 따라 currentPage와 sizes를 업데이트
-      const pageParam = searchParams.get('page');
-      const sizeParam = searchParams.get('size');
-      if (pageParam) {
-        setCurrentPage(pageParam ? parseInt(pageParam, 10) : 1);
-      }
-      if (sizeParam) {
-        setSizes(sizeParam ? parseInt(sizeParam, 10) : 10);
-      }
-
-      fetchData(currentPage, sizes);
+      fetchData(currentPageValue, sizesValue);
     }
   }, [
     search,
-    setItems,
-    currentPage,
-    sizes,
     searchParams,
+    setItems,
+    setCurrentPage,
     setSizes,
     setTotalCount,
     setPageableCount,
-    setCurrentPage,
   ]);
 
   const handlePageChange = (pageNumber: number, newSize: number) => {
@@ -143,7 +138,6 @@ const SearchPage = () => {
         ))}
       </S.Container>
       <Pagination
-        total_count={totalCount}
         pageable_count={pageableCount}
         onPageChange={handlePageChange}
         sizes={sizes}

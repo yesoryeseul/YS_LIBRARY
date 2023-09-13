@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import * as S from './Select.style';
 

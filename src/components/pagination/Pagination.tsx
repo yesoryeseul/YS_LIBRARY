@@ -10,9 +10,7 @@ import { flexCenter, mq } from 'styles/common';
 import { atom, useAtom } from 'jotai';
 
 interface PageProps {
-  total_count: number;
   pageable_count: number;
-  // is_end: boolean;
   onPageChange: (pageNumber: number, newSize: number) => void;
   sizes: number;
   currentPage: number;
@@ -22,7 +20,6 @@ interface PageProps {
 const groupAtom = atom(1);
 
 const Pagination: React.FC<PageProps> = ({
-  total_count,
   pageable_count,
   onPageChange,
   sizes,

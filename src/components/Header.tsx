@@ -15,7 +15,11 @@ const Header = () => {
   const currentPage = useAtomValue(pageAtom);
   const currentSize = useAtomValue(sizeAtom);
 
-  const onSearchBook = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSearchBook = (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<SVGElement, MouseEvent>
+  ) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
     console.log('검색어:', inputValue);
@@ -40,7 +44,7 @@ const Header = () => {
             value={inputValue}
             onChange={onChangeKeyword}
           />
-          <BiSearchAlt size={20} onClick={() => navigate(`/${inputValue}`)} />
+          <BiSearchAlt size={20} onClick={(e) => onSearchBook(e)} />
         </form>
       </S.SearchBarContainer>
     </S.Container>
