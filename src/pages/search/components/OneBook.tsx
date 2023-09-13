@@ -37,12 +37,10 @@ const OneBook = () => {
           parseInt(sizes, 10)
         ); // 책 데이터를 가져오는 함수
         const idData = response.data.documents;
-        console.log('idData', idData);
 
         const book = idData.find(
           (_: ItemData, idx: number) => idx === parseInt(id)
         ); // id에 해당하는 책 데이터를 가져옴
-        console.log('book', book);
         if (book) {
           setBook(book);
         }

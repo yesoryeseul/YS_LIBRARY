@@ -22,7 +22,11 @@ const Header = () => {
   ) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
-    console.log('검색어:', inputValue);
+    if (inputValue.includes('?') || inputValue.includes('#')) {
+      setInputValue('');
+      alert('#과 ?와 같은 특정 특수문자는 검색할 수 없습니다');
+      return;
+    }
     navigate(`/${inputValue}?page=${currentPage}&size=${currentSize}`);
     setInputValue('');
   };
@@ -33,7 +37,7 @@ const Header = () => {
 
   return (
     <S.Container>
-      <S.Title onClick={() => navigate('/')}>YS Library</S.Title>
+      <S.Title onClick={() => navigate('/')}>YS LIBRARY</S.Title>
       <S.SubTitle>당신이 원하는 도서를 무엇이든 검색해보세요</S.SubTitle>
       <S.SearchBarContainer>
         <form onSubmit={onSearchBook}>

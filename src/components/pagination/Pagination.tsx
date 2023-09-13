@@ -31,8 +31,6 @@ const Pagination: React.FC<PageProps> = ({
   const [params, _] = useSearchParams();
   const currentPageNumber = Number(params.get('page')) || currentPage;
 
-  console.log('page', currentPageNumber, typeof currentPageNumber);
-
   // 페이지 숫자 배열 생성
   const pagePerGroup = 10; // 그룹당 페이지 개수
   const totalGroups = Math.ceil(totalPages / pagePerGroup); // 그룹 개수

@@ -25,16 +25,14 @@ export interface ItemData {
 }
 
 export const bookAtom = atom<ItemData | null>(null);
-const itemAtom = atom<ItemData[]>([]);
+export const itemAtom = atom<ItemData[]>([]);
 const size = atom(10);
-const totalCountAtom = atom(0);
 const pageableCountAtom = atom(0);
 const currentPageAtom = atom(1);
 
 const SearchPage = () => {
   const { search } = useParams<{ search?: string }>();
   const [items, setItems] = useAtom(itemAtom);
-  const [totalCount, setTotalCount] = useAtom(totalCountAtom);
   const [pageableCount, setPageableCount] = useAtom(pageableCountAtom);
   const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
   const [sizes, setSizes] = useAtom(size); // 페이지 당 보여줄 개수
@@ -54,15 +52,11 @@ const SearchPage = () => {
       const fetchData = async (page: number, size: number) => {
         try {
           const response = await BookApi.getBookList(search, page, size);
-          console.log('data 테스트', response.data);
-          console.log('api 테스트', response.data.documents);
           const newData: ItemData[] = response.data.documents;
           setItems(newData);
 
-          const { total_count, pageable_count } = response.data.meta;
-          setTotalCount(total_count);
+          const { pageable_count } = response.data.meta;
           setPageableCount(pageable_count);
-          console.log('개수', total_count, pageable_count);
         } catch (error) {
           console.error('데이터 불러오는 중 에러 발생', error);
         }
@@ -76,7 +70,6 @@ const SearchPage = () => {
     setItems,
     setCurrentPage,
     setSizes,
-    setTotalCount,
     setPageableCount,
   ]);
 
