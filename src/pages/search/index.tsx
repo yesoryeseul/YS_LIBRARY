@@ -67,12 +67,6 @@ const SearchPage = () => {
     navigate(`?${searchParams.toString()}`);
   };
 
-  const options = [
-    { label: '10개씩 보기', value: 10 },
-    { label: '30개씩 보기', value: 30 },
-    { label: '50개씩 보기', value: 50 },
-  ];
-
   const handleSelectChange = (value: number) => {
     // 현재 페이지에서 보이는 첫 번째 항목의 인덱스 계산
     const startIndex = (currentPage - 1) * sizesValue;
@@ -101,9 +95,7 @@ const SearchPage = () => {
       <S.SelectBox>
         <Select
           variant={'primary'}
-          options={options}
           selectedValue={sizes}
-          selectedLabel={'10개씩 보기'}
           onChange={handleSelectChange}
         />
       </S.SelectBox>

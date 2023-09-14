@@ -1,22 +1,24 @@
 import { atom, useAtom } from 'jotai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import * as S from './Select.style';
 import { SelectProps } from 'interfaces/Select.interface';
 
 const isOpenAtom = atom(false);
 
-const Select = ({
-  variant,
-  options,
-  selectedValue,
-  selectedLabel,
-  onChange,
-  ...rest
-}: SelectProps) => {
+const Select = ({ variant, selectedValue, onChange, ...rest }: SelectProps) => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
   const [currentValue, setCurrentValue] = useState(selectedValue);
-  const [label, setLabel] = useState(selectedLabel);
+
+  const options = [
+    { label: '10개씩 보기', value: 10 },
+    { label: '30개씩 보기', value: 30 },
+    { label: '50개씩 보기', value: 50 },
+  ];
+
+  useEffect(() => {
+    setCurrentValue(selectedValue);
+  }, [selectedValue]);
 
   const onOpenControl = () => {
     setIsOpen((prev) => !prev);
@@ -28,18 +30,14 @@ const Select = ({
     setIsOpen(false);
 
     if (onChange) onChange(value);
-    if (setLabel) {
-      const selectedOption = options.find((option) => option.value === value);
-      if (selectedOption) {
-        setLabel(selectedOption.label);
-      }
-    }
   };
+
+  const mainLabel = options.find((option) => option.value === currentValue);
 
   return (
     <S.Wrapper onClick={onOpenControl}>
       <S.Container variant={variant}>
-        <S.Span>{label}</S.Span>
+        <S.Span>{mainLabel && mainLabel.label}</S.Span>
         <AiFillCaretDown size={16} />
       </S.Container>
       {isOpen && (
