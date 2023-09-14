@@ -9,6 +9,7 @@ import {
 import { flexCenter, mq } from 'styles/common';
 import { atom, useAtom } from 'jotai';
 import { PageProps } from 'interfaces/Pagination.interface';
+import { useEffect } from 'react';
 
 const groupAtom = atom(1);
 
@@ -31,6 +32,14 @@ const Pagination: React.FC<PageProps> = ({
   const pageNumbers = Array(totalPages)
     .fill(0)
     .map((_, idx) => idx + 1);
+
+  useEffect(() => {
+    setCurrentPage(currentPageNumber); // select n개씩 바뀔 때 해당 페이지 가져오기, 포커싱
+
+    // 현재 페이지에 해당하는 그룹 계산하여 그룹 재세팅
+    const newCurrentGroup = Math.ceil(currentPageNumber / pagePerGroup);
+    setCurrentGroup(newCurrentGroup);
+  }, [currentPageNumber, setCurrentPage, setCurrentGroup]);
 
   // 이전 그룹 이동
   const onGoPrevGroup = () => {

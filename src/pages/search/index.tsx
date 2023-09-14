@@ -25,16 +25,13 @@ const SearchPage = () => {
 
   const navigate = useNavigate();
   const [searchParams, _] = useSearchParams();
+  const currentPageValue = parseInt(searchParams.get('page') || '1', 10);
+  const sizesValue = parseInt(searchParams.get('size') || '10', 10);
+
   useEffect(() => {
     if (search) {
-      // URL 파라미터에 따라 currentPage와 sizes를 업데이트
-      const pageParam = searchParams.get('page');
-      const sizeParam = searchParams.get('size');
-      const currentPageValue = pageParam ? parseInt(pageParam, 10) : 1;
-      const sizesValue = sizeParam ? parseInt(sizeParam, 10) : 10;
       setCurrentPage(currentPageValue);
       setSizes(sizesValue);
-
       const fetchData = async (page: number, size: number) => {
         try {
           const response = await BookApi.getBookList(search, page, size);
@@ -57,6 +54,8 @@ const SearchPage = () => {
     setCurrentPage,
     setSizes,
     setPageableCount,
+    currentPageValue,
+    sizesValue,
   ]);
 
   const handlePageChange = (pageNumber: number, newSize: number) => {
@@ -75,13 +74,16 @@ const SearchPage = () => {
   ];
 
   const handleSelectChange = (value: number) => {
-    // const newPageNumber = Math.ceil(((currentPage - 1) * sizes) / value);
-    // setSizes(value);
-    // setCurrentPage(newPageNumber); // 새로운 페이지 번호 설정
-    // searchParams.set('page', newPageNumber.toString());
-    // searchParams.set('size', value.toString());
-    // navigate(`?${searchParams.toString()}`);
+    // 현재 페이지에서 보이는 첫 번째 항목의 인덱스 계산
+    const startIndex = (currentPage - 1) * sizesValue;
+    // 2 - 1 * 10 = 10
+    // 새로운 페이지 번호 계산
+    const newPageNumber = Math.floor(startIndex / value) + 1;
+    // 10 / 30 + 1
+
     setSizes(value);
+    setCurrentPage(newPageNumber);
+    searchParams.set('page', newPageNumber.toString());
     searchParams.set('size', value.toString());
     navigate(`?${searchParams.toString()}`);
   };
@@ -120,7 +122,7 @@ const SearchPage = () => {
       <Pagination
         pageable_count={pageableCount}
         onPageChange={handlePageChange}
-        sizes={sizes}
+        sizes={sizesValue}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
