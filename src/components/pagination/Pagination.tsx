@@ -8,14 +8,7 @@ import {
 } from 'react-icons/tb';
 import { flexCenter, mq } from 'styles/common';
 import { atom, useAtom } from 'jotai';
-
-interface PageProps {
-  pageable_count: number;
-  onPageChange: (pageNumber: number, newSize: number) => void;
-  sizes: number;
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-}
+import { PageProps } from 'interfaces/Pagination.interface';
 
 const groupAtom = atom(1);
 

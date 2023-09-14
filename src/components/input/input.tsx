@@ -1,13 +1,5 @@
-import { ChangeEvent } from 'react';
 import * as S from './input.style';
-
-interface InputProps {
-  variant: 'primary' | 'lineType';
-  shape: 'none' | 'primary';
-  value?: string;
-  placeholder?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+import { InputComponentsProps } from 'interfaces/Input.interface';
 
 const Input = ({
   variant,
@@ -15,7 +7,7 @@ const Input = ({
   value,
   placeholder,
   onChange,
-}: InputProps) => {
+}: InputComponentsProps) => {
   return (
     <S.Input
       placeholder={placeholder}

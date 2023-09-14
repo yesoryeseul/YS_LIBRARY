@@ -1,11 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { InputStylesProps } from 'interfaces/Input.interface';
 import { mq } from 'styles/common';
-
-export interface InputProps {
-  variant: 'primary' | 'lineType';
-  shape: 'none' | 'primary';
-}
 
 const variantCSS = {
   primary: css`
@@ -28,7 +24,7 @@ const shapeCSS = {
   `,
 };
 
-export const Input = styled.input<InputProps>`
+export const Input = styled.input<InputStylesProps>`
   outline: none;
   ${({ variant }) => variantCSS[variant]}
   ${({ shape }) => shapeCSS[shape]}

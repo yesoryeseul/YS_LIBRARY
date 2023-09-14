@@ -1,22 +1,10 @@
 import styled from '@emotion/styled';
-import { ItemData } from '..';
 import { AiOutlinePicture } from 'react-icons/ai';
 import { boxShadow, flexCenter, mq } from 'styles/common';
 import { useNavigate } from 'react-router-dom';
+import { ItemProps } from 'interfaces/Item.interface';
 
-const Item = ({
-  item,
-  id,
-  search,
-  page,
-  size,
-}: {
-  item: ItemData;
-  id: number;
-  search: string;
-  page: number;
-  size: number;
-}) => {
+const Item = ({ item, id, search, page, size }: ItemProps) => {
   const navigate = useNavigate();
   const title =
     item.title.length > 15 ? `${item.title.slice(0, 20)}...` : item.title;

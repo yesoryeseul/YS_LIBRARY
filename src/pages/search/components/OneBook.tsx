@@ -2,13 +2,12 @@ import { atom, useAtom } from 'jotai';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import BookApi from 'apis/book.api';
-import { ItemData, bookAtom } from '..';
+import { bookAtom } from '..';
 import styled from '@emotion/styled';
 import formatDate from 'utils/getDate';
 import { boxShadow, flexCenter, mq } from 'styles/common';
 import { AiOutlinePicture } from 'react-icons/ai';
-
-// const size = atom(10);
+import { ItemData } from 'interfaces/Item.interface';
 
 const OneBook = () => {
   const { id, page, search, size } = useParams<{
@@ -19,7 +18,6 @@ const OneBook = () => {
   }>();
 
   const [book, setBook] = useAtom(bookAtom);
-  // const [sizes, setSizes] = useAtom(size);
   const location = useLocation();
   const sizes = location.state?.size || '10';
 
