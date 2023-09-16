@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+<p align="middle" >
+  <img width="600px;" src="https://github.com/yesoryeseul/YS_Library/assets/123865139/9fd26a82-0874-45e9-8294-0041b1b522a1"/>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="middle">YS Library</h1>
+<p align="middle">카카오 도서 검색 api를 활용한 도서 정보 검색 프로젝트</p>
 
-## Available Scripts
+## 프로젝트 소개 📝
 
-In the project directory, you can run:
+카카오 도서 검색 api를 활용한 도서 정보 검색 타입스크립트 토이 프로젝트입니다.
 
-### `npm start`
+검색창에 원하는 도서 정보를 검색하여 원하는 도서 정보를 제공하며, 개별 도서에 대한 상세 정보(가격, 할인가, 도서 내용, 저자, 출판사 등)를 확인할 수 있습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 배포 링크 🔗
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+[YS LIBRARY](https://ys-library.vercel.app/)
 
-### `npm test`
+## 문서화
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Notion](https://electric-record-375.notion.site/YS-Library-98bcd7499b564d0e923ff378e7015d68?pvs=4)
 
-### `npm run build`
+## 팀원 👩
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+개인작업 진행하였습니다 :)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 프로젝트 기술스택 💡
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 프론트엔드 ⚙️
 
-### `npm run eject`
+| 스택                                                                                                             | 사용        |
+| :--------------------------------------------------------------------------------------------------------------- | :---------- |
+| <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">             | 리액트      |
+| <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">   | 언어        |
+| <img src="https://img.shields.io/badge/Jotai-171717?style=for-the-badge&logo=Jotai&logoColor=black">             | 상태 관리   |
+| <img src="https://img.shields.io/badge/ReactRouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> | 라우팅 연결 |
+| <img src="https://img.shields.io/badge/emotion-D26AC2?style=for-the-badge&logo=emotion&logoColor=white">         | CSS-in-JS   |
+| <img src="https://img.shields.io/badge/React_icons-e91e63?style=for-the-badge&logo=React&logoColor=white">       | 아이콘      |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 커밋 컨벤션 ☑️
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+|   Type   | Description                   |
+| :------: | ----------------------------- |
+|   feat   | Add a new feature             |
+|   fix    | Fix the bug                   |
+|  design  | UI design changes such as CSS |
+|  style   | code formatting               |
+| refactor | Refactoring the code          |
+|   docs   | Modify the document           |
+|  chore   | etc.                          |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<hr>
+로고 출처 <a href="https://kr.freepik.com/free-vector/book-logo-template-collection_12064019.htm#query=book%20icon&position=3&from_view=search&track=ais">Freepik</a>
