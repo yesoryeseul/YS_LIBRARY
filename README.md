@@ -1,9 +1,8 @@
 <p align="middle" >
-  <img width="600px;" src="https://github.com/yesoryeseul/YS_Library/assets/123865139/9fd26a82-0874-45e9-8294-0041b1b522a1"/>
+  <img width="600px;" src="https://github.com/yesoryeseul/YS_Library/assets/123865139/c9e26b65-9b83-4d18-b8bb-8fb10f20a2da")
+"/>
 </p>
 
-<h1 align="middle">YS Library</h1>
-<p align="middle">카카오 도서 검색 api를 활용한 도서 정보 검색 프로젝트</p>
 
 ## 프로젝트 소개 📝
 
@@ -12,7 +11,7 @@
 검색창에 원하는 도서 정보를 검색하여 원하는 도서 정보를 제공하며, 개별 도서에 대한 상세 정보(가격, 할인가, 도서 내용, 저자, 출판사 등)를 확인할 수 있습니다.
 
 ## 배포 링크 🔗
-
+![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=therealsujitk-vercel-badge) <br>
 [YS LIBRARY](https://ys-library.vercel.app/)
 
 ## 문서화
