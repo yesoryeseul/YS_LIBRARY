@@ -11,7 +11,7 @@
 검색창에 원하는 도서 정보를 검색하여 원하는 도서 정보를 제공하며, 개별 도서에 대한 상세 정보(가격, 할인가, 도서 내용, 저자, 출판사 등)를 확인할 수 있습니다.
 
 ## 배포 링크 🔗
-![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=therealsujitk-vercel-badge) <br>
+![Vercel](http://therealsujitk-vercel-badge.vercel.app/?app=ys-library) <br>
 [YS LIBRARY](https://ys-library.vercel.app/)
 
 ## 문서화
