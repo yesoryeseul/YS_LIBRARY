@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { InputStylesProps } from 'interfaces/Input.interface';
+import { InputStylesProps } from 'models/Input.interface';
 import { mq } from 'styles/common';
 
 const variantCSS = {

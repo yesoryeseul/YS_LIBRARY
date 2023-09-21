@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import formatDate from 'utils/getDate';
 import { boxShadow, flexCenter, mq } from 'styles/common';
 import { AiOutlinePicture } from 'react-icons/ai';
-import { ItemData } from 'interfaces/Item.interface';
+import { ItemData } from 'models/Item.interface';
 
 const OneBook = () => {
   const { id, page, search, size } = useParams<{

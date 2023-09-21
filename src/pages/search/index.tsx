@@ -8,7 +8,7 @@ import Pagination from 'components/pagination/Pagination';
 import { flexCenter, mq } from 'styles/common';
 import Select from 'components/select/Select';
 import ScrollToTop from 'components/scrollToTop/ScrollToTop';
-import { ItemData } from 'interfaces/Item.interface';
+import { ItemData } from 'models/Item.interface';
 
 export const bookAtom = atom<ItemData | null>(null);
 export const itemAtom = atom<ItemData[]>([]);

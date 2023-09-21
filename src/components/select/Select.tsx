@@ -2,7 +2,14 @@ import { atom, useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import * as S from './Select.style';
-import { SelectProps } from 'interfaces/Select.interface';
+
+export interface SelectProps {
+  variant: 'primary';
+  options?: { label: string; value: number }[];
+  selectedValue: number;
+  selectedLabel?: string;
+  onChange?: (value: number) => void;
+}
 
 const isOpenAtom = atom(false);
 

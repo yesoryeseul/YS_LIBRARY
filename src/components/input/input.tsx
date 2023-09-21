@@ -1,5 +1,5 @@
+import { InputComponentsProps } from 'models/Input.interface';
 import * as S from './input.style';
-import { InputComponentsProps } from 'interfaces/Input.interface';
 
 const Input = ({
   variant,

@@ -1,20 +1,10 @@
 import '@emotion/react';
+import { ColorsTypes, FontSizeTypes, BordersTypes } from './theme';
 
 declare module '@emotion/react' {
   export interface Theme {
-    color: {
-      black: string;
-      primary: string;
-      gray500: string;
-    };
-    fontSize: {
-      small: string;
-      medium: string;
-      title: string;
-      subtitle: string;
-    };
-    border: {
-      primary: string;
-    };
+    color: ColorsTypes;
+    fontSize: FontSizeTypes;
+    border: BordersTypes;
   }
 }

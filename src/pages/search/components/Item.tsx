@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { AiOutlinePicture } from 'react-icons/ai';
 import { boxShadow, flexCenter, mq } from 'styles/common';
 import { useNavigate } from 'react-router-dom';
-import { ItemProps } from 'interfaces/Item.interface';
+import { ItemProps } from 'models/Item.interface';
 
 const Item = ({ item, id, search, page, size }: ItemProps) => {
   const navigate = useNavigate();
