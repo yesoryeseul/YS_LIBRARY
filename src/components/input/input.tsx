@@ -1,4 +1,4 @@
-import { InputComponentsProps } from 'models/Input.interface';
+import { InputComponentsProps } from 'types/Input.interface';
 import * as S from './input.style';
 
 const Input = ({

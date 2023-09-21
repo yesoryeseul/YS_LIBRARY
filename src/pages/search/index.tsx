@@ -1,14 +1,14 @@
 import BookApi from 'apis/book.api';
 import { useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import Item from './components/Item';
+import Item from './components/OneItem';
 import { atom, useAtom } from 'jotai';
 import styled from '@emotion/styled';
 import Pagination from 'components/pagination/Pagination';
 import { flexCenter, mq } from 'styles/common';
 import Select from 'components/select/Select';
 import ScrollToTop from 'components/scrollToTop/ScrollToTop';
-import { ItemData } from 'models/Item.interface';
+import { ItemData } from 'types/Item.interface';
 
 export const bookAtom = atom<ItemData | null>(null);
 export const itemAtom = atom<ItemData[]>([]);
